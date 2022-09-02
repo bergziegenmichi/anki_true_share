@@ -1,10 +1,10 @@
 from aqt.qt import QWidget, QVBoxLayout, QLabel, QComboBox, QLineEdit, \
     QRadioButton, QPushButton
 
-from .anki_true_sync import Synchronizer
+from .synchronizer import Synchronizer
 
 
-class AddSyncedDeckWidget(QWidget):
+class ShareDeckWidget(QWidget):
     deck_select: QComboBox
     remote_url: QLineEdit
     push_button: QRadioButton
@@ -23,7 +23,7 @@ class AddSyncedDeckWidget(QWidget):
 
         layout = QVBoxLayout()
 
-        deck_select_text = QLabel("Select deck to synchronize")
+        deck_select_text = QLabel("Select deck to share")
         layout.addWidget(deck_select_text)
         self.deck_select = deck_select = QComboBox()
         deck_select.addItems(deck_names)

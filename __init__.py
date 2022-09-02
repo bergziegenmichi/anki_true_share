@@ -1,12 +1,12 @@
 from aqt import mw
 from aqt.qt import QAction
-from .anki_true_sync import Synchronizer
+from .synchronizer import Synchronizer
 from .setup import setup
-from .widgets import AddSyncedDeckWidget
+from .widgets import ShareDeckWidget
 
 
 def add_synced():
-    mw.my_widget = AddSyncedDeckWidget(synchronizer, mw.col.decks.all_names())
+    mw.my_widget = ShareDeckWidget(synchronizer, mw.col.decks.all_names())
 
 
 def sync_up():
@@ -20,10 +20,10 @@ setup()
 
 synchronizer = Synchronizer(__name__)
 
-menu = mw.form.menubar.addMenu("True Sync")
-action_add_synced = QAction("add synced deck")
-action_sync_up = QAction("sync up")
-action_sync_down = QAction("sync down")
+menu = mw.form.menubar.addMenu("True Share")
+action_add_synced = QAction("Share deck")
+action_sync_up = QAction("Sync up (push)")
+action_sync_down = QAction("Sync down (pull)")
 
 action_add_synced.triggered.connect(add_synced)
 action_sync_up.triggered.connect(sync_up)

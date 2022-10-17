@@ -3,19 +3,17 @@ import os
 from aqt import mw, gui_hooks
 
 from .git_manager import GitManager
-from .config_manager import ConfigManager
 from .import_export import export_to_csv, import_from_csv
+from .preferences import SharedDecks
 
 
 class Synchronizer:
     git_managers: dict[str, GitManager] = {}
-    config_manager: ConfigManager
     user_files_folder: str
 
-    def __init__(self, module_name: str):
-        self.config_manager = ConfigManager(module_name)
+    def __init__(self, ):
         self.user_files_folder = mw.addonManager.addonsFolder(
-            module_name) + "/user_files"
+            __name__.split(".")[0]) + "/user_files"
 
         self.git_managers = self.load_shared_decks()
 
@@ -26,7 +24,6 @@ class Synchronizer:
     def sync_all_decks(self):
         for deck_name in self.git_managers.keys():
             self.sync_deck(deck_name)
-        self.config_manager.write_config()
 
     def sync_deck(self, deck_name):
         export_to_csv(deck_name, self.create_csv_path(deck_name))
@@ -48,7 +45,7 @@ class Synchronizer:
 
     def load_shared_decks(self) -> dict[str, GitManager]:
         git_managers = {}
-        for deck_name in self.config_manager.get_shared_decks():
+        for deck_name in SharedDecks.get().keys():
             git_managers[deck_name] = GitManager(
                 f"{self.user_files_folder}/git_repos/{deck_name}")
         return git_managers
@@ -59,8 +56,7 @@ class Synchronizer:
         if push + pull != 1:
             raise Exception
 
-        self.config_manager.add_shared_deck(deck_name, remote_url)
-        self.config_manager.write_config()
+        SharedDecks.add(deck_name, remote_url)
         git_path = f"{self.user_files_folder}/" \
                    f"git_repos/" \
                    f"{deck_name}/"

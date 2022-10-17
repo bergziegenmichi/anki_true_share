@@ -1,7 +1,8 @@
 from aqt import mw
 from aqt.qt import QAction
-from .synchronizer import Synchronizer
+
 from .setup import setup
+from .synchronizer import Synchronizer
 from .widgets import ShareDeckWidget
 
 
@@ -16,9 +17,10 @@ def sync_up():
 def sync_down():
     synchronizer.sync_down()
 
+
 setup()
 
-synchronizer = Synchronizer(__name__)
+synchronizer = Synchronizer()
 
 menu = mw.form.menubar.addMenu("True Share")
 action_add_synced = QAction("Share deck")

@@ -18,9 +18,3 @@ def setup():
     os.makedirs(path + "/user_files", exist_ok=True)
     os.makedirs(path + "/user_files/git_repos", exist_ok=True)
     os.makedirs(path + "/user_files/symlinks", exist_ok=True)
-
-    try:
-        with open(path + "/config.json", "w") as f:
-            f.write(generate_default_config())
-    except FileExistsError:
-        pass

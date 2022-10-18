@@ -2,12 +2,12 @@ import os
 
 from aqt import mw
 
-from .preferences import Preferences
+from .preferences import Preferences, SharedDecks
 
 
 def generate_default_config() -> dict[str, dict[str, str]]:
-    preferences = {"dupe_resolution": Preferences.DUPE_RESOLUTION.get_default()}
-    config = {"shared_decks": {},
+    preferences = {"dupe_resolution": Preferences.DUPE_RESOLUTION.get()}
+    config = {"shared_decks": SharedDecks.get(),
               "preferences": preferences}
     return config
 

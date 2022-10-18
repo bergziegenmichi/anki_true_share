@@ -19,6 +19,9 @@ def setup():
     os.makedirs(path + "/user_files/git_repos", exist_ok=True)
     os.makedirs(path + "/user_files/symlinks", exist_ok=True)
 
-    if not os.path.exists(path + "/config.json"):
+    try:
+        open(path+"/config.json", "x")
         config = generate_default_config()
         mw.addonManager.writeConfig(__name__.split(".")[0], config)
+    except FileExistsError:
+        pass

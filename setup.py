@@ -2,7 +2,7 @@ import os
 
 from aqt import mw
 
-from .preferences import Preferences, SharedDecks
+from .preferences import Preferences
 
 
 def generate_default_config() -> dict[str, dict[str, str]]:
@@ -19,6 +19,6 @@ def setup():
     os.makedirs(path + "/user_files/git_repos", exist_ok=True)
     os.makedirs(path + "/user_files/symlinks", exist_ok=True)
 
-    if not os.path.exists(path + "/config.json"):
+    if mw.addonManager.getConfig(__name__.split(".")[0]) is None:
         config = generate_default_config()
         mw.addonManager.writeConfig(__name__.split(".")[0], config)

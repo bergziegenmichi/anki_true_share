@@ -3,7 +3,7 @@ from git import Repo
 
 
 class GitManager:
-    repo: Repo = None
+    repo: Repo
 
     @staticmethod
     def init_repo(path: str, remote_url: str) -> GitManager:

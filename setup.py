@@ -1,11 +1,12 @@
 import os
+from typing import Any
 
 from aqt import mw
 
 from .preferences import Preferences
 
 
-def generate_default_config() -> dict[str, dict[str, str]]:
+def generate_default_config() -> dict[str, dict[str, str] | dict[Any]]:
     preferences = {"dupe_resolution": Preferences.DUPE_RESOLUTION.get_default()}
     config = {"shared_decks": {},
               "preferences": preferences}

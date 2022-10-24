@@ -7,12 +7,14 @@ from aqt import mw
 from .preferences import Preferences
 
 
-def export_to_csv(deck_name: str, output_path: str) -> str:
-    if not os.path.exists(output_path):
-        raise FileNotFoundError
+def export_to_csv(deck_name: str, output_dir: str) -> str:
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
-    if os.path.isdir(output_path):
-        output_path += f"/{deck_name}.csv"
+    if not os.path.isdir(output_dir):
+        raise Exception
+
+    output_path = os.path.join(output_dir, f"{deck_name}.csv")
 
     mw.col.export_note_csv(out_path=output_path, limit=DeckIdLimit(
         mw.col.decks.id_for_name(deck_name)), with_html=True, with_tags=True,

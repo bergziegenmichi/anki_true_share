@@ -45,8 +45,16 @@ class _Preference(Preference):
 class SharedDecks:
     @staticmethod
     def get() -> dict[str, str]:
-        return mw.addonManager.getConfig(__name__.split(".")[0])[
-            "shared_decks"]
+        return mw.addonManager.getConfig(
+            __name__.split(".")[0])["shared_decks"]
+
+    @staticmethod
+    def get_names() -> list[str]:
+        return list(SharedDecks.get().keys())
+
+    @staticmethod
+    def get_remote_urls() -> list[str]:
+        return list(SharedDecks.get().values())
 
     @staticmethod
     def add(name: str, remote_url: str) -> bool:
